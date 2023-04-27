@@ -1,6 +1,7 @@
 
 # In this project you can try to use basic render primitives to use them in your future engine.
 # Build and Run on Fedora
+
  1.cd render
  
  2.mkdir build
