@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Configure CMake
+      run: |
+        cd ${{ github.workspace }}
+        cd render
+        mkdir build
+        cd build
+        cmake ..
+    
+    - name: Build Static
+      run: |
+        cd ${{ github.workspace }}
+        cd render
+        cd build
+        cmake --build .
+        
