@@ -1,3 +1,5 @@
+[![build](https://github.com/apachaihop/basic_render/actions/workflows/main.yml/badge.svg)](https://github.com/apachaihop/basic_render/actions/workflows/main.yml)
+
 
 # In this project you can try to use basic render primitives to use them in your future engine.
 # Build and Run on Fedora
