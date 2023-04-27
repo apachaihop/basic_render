@@ -119,7 +119,7 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
     if (start == end)
     {
         position delta        = start - middle_pos;
-        size_t   count_pixels = 4 * (std::abs(delta.x) + std::abs(delta.y) + 1);
+        size_t   count_pixels = std::abs(delta.x) + std::abs(delta.y);
         for (size_t i = 0; i < count_pixels; ++i)
         {
             double t      = static_cast<double>(i) / count_pixels;
@@ -147,7 +147,7 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
     if (end == middle_pos)
     {
         position delta        = start - middle_pos;
-        size_t   count_pixels = 4 * (std::abs(delta.x) + std::abs(delta.y) + 1);
+        size_t   count_pixels = std::abs(delta.x) + std::abs(delta.y);
         for (size_t i = 0; i < count_pixels; ++i)
         {
             double t      = static_cast<double>(i) / count_pixels;
