@@ -1,7 +1,3 @@
-//
-// Created by apachai on 27.04.23.
-//
-
 #include "triangle_index_render.hxx"
 #include "basic_canvas.hxx"
 
@@ -34,7 +30,6 @@ void triangle_indexed_render::draw_triangles(std::vector<position>& vertexes,
             std::end(triangles_edge_pixels), lines.begin(), lines.end());
     }
 
-    // apply color to every pixel position
     for (auto pos : triangles_edge_pixels)
     {
         set_pixel(pos, p);
