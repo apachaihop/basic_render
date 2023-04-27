@@ -1,5 +1,6 @@
 #include "triangle_render.hxx"
 #include "basic_canvas.hxx"
+
 triangle_render::triangle_render(canvas& buffer, size_t width, size_t height)
     : render_line(buffer, width, height)
 {
@@ -38,7 +39,6 @@ void triangle_render::draw_triangles(std::vector<position>& vertexes,
         }
     }
 
-    // apply color to every pixel position
     for (auto pos : triangles_edge_pixels)
     {
         set_pixel(pos, p);
