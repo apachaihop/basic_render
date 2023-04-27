@@ -1,5 +1,5 @@
 #include "triangle_index_render.hxx"
-int main(int, char**)
+int main()
 {
     constexpr pixel black = { 0, 0, 0 };
 
