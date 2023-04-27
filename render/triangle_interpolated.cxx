@@ -175,10 +175,7 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
         double middle_start = (second_middle - start).length();
         t                   = middle_start / end_start;
     }
-    else
-    {
-        std::vector<position> line = pixels_positions(start, middle_pos);
-    }
+    
     vertex second_middle_vertex = interpolate(top, bottom, t);
 
     std::vector<vertex> top_triangle =
