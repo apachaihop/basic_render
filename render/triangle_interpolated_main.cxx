@@ -32,11 +32,11 @@ int main()
 
     interpolated_render.clear(black);
 
-    //                                x  y              r  g  b  tx ty
+  
     std::vector<vertex> triangle_v{ { 100, 0, 1, 255, 0, 0, 0 },
                                     { 0, 239, 0, 0, 255, 0, 1 },
                                     { 319, 239, 0, 0, 0, 255, 2 } };
-    // clang-format on
+   
     std::vector<uint16_t> indexes_v{ { 0, 1, 2 } };
     struct program : public gfx_program
     {
@@ -89,13 +89,10 @@ int main()
             return res;
         }
     } program1;
+    
     void*     pixels = image.get_pixels().data();
     const int depth  = sizeof(pixel) * 8;
     const int pitch  = width * sizeof(pixel);
-    const int rmask  = 0x000000ff;
-    const int gmask  = 0x0000ff00;
-    const int bmask  = 0x00ff0000;
-    const int amask  = 0;
 
     interpolated_render.set_gfx(reinterpret_cast<gfx_program&>(program1));
 
@@ -152,39 +149,10 @@ int main()
 
         SDL_Surface* bitmapSurface = SDL_CreateSurfaceFrom(
             pixels, width, height, pitch, SDL_PIXELFORMAT_RGB24);
-        if (bitmapSurface == nullptr)
-        {
-            std::cerr << "Failed to SDL_CreateSurfaceFrom(" << pixels << ", "
-                      << width << ", " << height << ", " << pitch << ", "
-                      << SDL_GetPixelFormatName(SDL_PIXELFORMAT_RGB888) << ") "
-                      << SDL_GetError() << std::endl;
-            SDL_RendererInfo renderer_info{};
-            if (0 == SDL_GetRendererInfo(renderer, &renderer_info))
-            {
-                std::cerr << "name: " << renderer_info.name << '\n'
-                          << "flags: " << std::bitset<32>(renderer_info.flags)
-                          << '\n';
-                for (int i = 0; i < renderer_info.num_texture_formats; i++)
-                {
-                    std::cerr << "supported texture format: "
-                              << SDL_GetPixelFormatName(
-                                     renderer_info.texture_formats[i])
-                              << '\n';
-                }
-                std::cerr << "max texture width: "
-                          << renderer_info.max_texture_width << '\n'
-                          << "max texture height: "
-                          << renderer_info.max_texture_height << '\n';
-            }
-            return EXIT_FAILURE;
-        }
+  
         SDL_Texture* bitmapTex =
             SDL_CreateTextureFromSurface(renderer, bitmapSurface);
-        if (bitmapTex == nullptr)
-        {
-            std::cerr << SDL_GetError() << std::endl;
-            return EXIT_FAILURE;
-        }
+
         SDL_DestroySurface(bitmapSurface);
 
         SDL_RenderClear(renderer);
