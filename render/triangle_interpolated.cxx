@@ -119,7 +119,7 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
     if (start == end)
     {
         position delta        = start - middle_pos;
-        size_t   count_pixels = std::abs(delta.x) + std::abs(delta.y);
+        size_t   count_pixels = 4 * (std::abs(delta.x) + std::abs(delta.y) + 1);
         for (size_t i = 0; i < count_pixels; ++i)
         {
             double t      = static_cast<double>(i) / count_pixels;
@@ -133,7 +133,7 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
     if (start == middle_pos)
     {
         position delta        = start - end;
-        size_t   count_pixels = std::abs(delta.x) + std::abs(delta.y) + 1;
+        size_t   count_pixels = 4 * (std::abs(delta.x) + std::abs(delta.y) + 1);
         for (size_t i = 0; i < count_pixels; ++i)
         {
             double t      = static_cast<double>(i) / count_pixels;
@@ -175,7 +175,10 @@ std::vector<vertex> triangle_interpolated::rasterize_triangle(const vertex& v0,
         double middle_start = (second_middle - start).length();
         t                   = middle_start / end_start;
     }
-    
+    else
+    {
+        std::vector<position> line = pixels_positions(start, middle_pos);
+    }
     vertex second_middle_vertex = interpolate(top, bottom, t);
 
     std::vector<vertex> top_triangle =
@@ -207,14 +210,15 @@ void triangle_interpolated::draw_triangles(std::vector<vertex>&   vertexes,
         const vertex& v1 = vertexes.at(index1);
         const vertex& v2 = vertexes.at(index2);
 
+        const vertex v0_ = gfx->vertex_shader(v0);
+        const vertex v1_ = gfx->vertex_shader(v1);
+        const vertex v2_ = gfx->vertex_shader(v2);
+
         const std::vector<vertex> interpoleted{ rasterize_triangle(
-            v0, v1, v2) };
+            v0_, v1_, v2_) };
         for (const vertex& interpolated_vertex : interpoleted)
         {
-            const pixel p =
-                pixel{ static_cast<uint8_t>(interpolated_vertex.f3),
-                       static_cast<uint8_t>(interpolated_vertex.f4),
-                       static_cast<uint8_t>(interpolated_vertex.f5) };
+            const pixel    p = gfx->fragment_shader(interpolated_vertex);
             const position pos{
                 static_cast<int32_t>(std::round(interpolated_vertex.x)),
                 static_cast<int32_t>(std::round(interpolated_vertex.y))

@@ -1,6 +1,6 @@
 #include "triangle_render.hxx"
 
-int main()
+int main(int, char**)
 {
     const pixel      black  = { 0, 0, 0 };
     constexpr size_t width  = 320;

@@ -1,7 +1,6 @@
 #include "basic_canvas.hxx"
 #include <exception>
 #include <iostream>
-
 int main()
 {
     size_t width  = 320;

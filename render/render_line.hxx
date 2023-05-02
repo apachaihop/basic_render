@@ -1,3 +1,7 @@
+//
+// Created by apachai on 26.04.23.
+//
+
 #ifndef RENDER_RENDER_LINE_HXX
 #define RENDER_RENDER_LINE_HXX
 #include "basic_canvas.hxx"
